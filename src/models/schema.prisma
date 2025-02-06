@@ -14,7 +14,20 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
+  id    Int     @id 
   email String  @unique
-  name  String?
+  name  String
+  //password String
+  hash String
+  salt String
+  phone String
+  isPremium boolean @default(false)
+  reserves Reserves[]
 }
+ model  Reserve{
+  id Int  @id @default(autoincrement())
+  address String 
+  date DateTime @default(now())
+  userEmail String
+  user user @relation(fields: [userEmail],references: [email])
+ }
